@@ -1,16 +1,9 @@
 #!/bin/bash
-# Differential token test: compares the reference lexer's token classification
-# against the tree-sitter parse, over every example file. Files the reference
-# parser rejects are reported separately -- tree-sitter's error recovery is
-# allowed to diverge there.
-# Requires cs426-mp1/reference-binaries, so this script stays untracked.
+
 set -u
 
 GRAMMAR_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-# cs426-mp1 supplies the reference binaries and example corpus: as a submodule
-# after a fresh clone, or as a sibling checkout in the course directory.
-# An explicit MP1 is used as given and never falls back.
 if [ -z "${MP1:-}" ]; then
     for candidate in "$GRAMMAR_DIR/cs426-mp1" "$GRAMMAR_DIR/../cs426-mp1"; do
         [ -d "$candidate/reference-binaries" ] && { MP1="$candidate"; break; }
