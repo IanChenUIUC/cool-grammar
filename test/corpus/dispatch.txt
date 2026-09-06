@@ -1,0 +1,114 @@
+================================================================================
+Implicit self dispatch
+================================================================================
+
+class Main {
+  f() : Int { g(1, 2) };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (call_expression
+        (identifier)
+        (argument_list
+          (integer)
+          (integer))))))
+
+================================================================================
+Dispatch on an object
+================================================================================
+
+class Main {
+  f() : Int { x.g() };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (dispatch_expression
+        (identifier)
+        (identifier)
+        (argument_list)))))
+
+================================================================================
+Chained dispatch is left associative
+================================================================================
+
+class Main {
+  f() : Int { x.g().h() };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (dispatch_expression
+        (dispatch_expression
+          (identifier)
+          (identifier)
+          (argument_list))
+        (identifier)
+        (argument_list)))))
+
+================================================================================
+Static dispatch
+================================================================================
+
+class Main {
+  f() : Int { x@Parent.g(1) };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (static_dispatch_expression
+        (identifier)
+        (type_identifier)
+        (identifier)
+        (argument_list
+          (integer))))))
+
+================================================================================
+Static dispatch binds looser than dispatch
+================================================================================
+
+class Main {
+  f() : Int { x.g()@Parent.h() };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (static_dispatch_expression
+        (dispatch_expression
+          (identifier)
+          (identifier)
+          (argument_list))
+        (type_identifier)
+        (identifier)
+        (argument_list)))))

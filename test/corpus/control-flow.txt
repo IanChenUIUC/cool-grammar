@@ -1,0 +1,218 @@
+================================================================================
+Conditional
+================================================================================
+
+class Main {
+  f() : Int { if a < b then 1 else 2 fi };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (conditional_expression
+        (binary_expression
+          (identifier)
+          (identifier))
+        (integer)
+        (integer)))))
+
+================================================================================
+Nested conditional
+================================================================================
+
+class Main {
+  f() : Int { if a then if b then 1 else 2 fi else 3 fi };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (conditional_expression
+        (identifier)
+        (conditional_expression
+          (identifier)
+          (integer)
+          (integer))
+        (integer)))))
+
+================================================================================
+While loop
+================================================================================
+
+class Main {
+  f() : Object { while a < b loop a <- a + 1 pool };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (while_expression
+        (binary_expression
+          (identifier)
+          (identifier))
+        (assignment_expression
+          (identifier)
+          (binary_expression
+            (identifier)
+            (integer)))))))
+
+================================================================================
+Block
+================================================================================
+
+class Main {
+  f() : Int { { a; b; c; } };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (block
+        (identifier)
+        (identifier)
+        (identifier)))))
+
+================================================================================
+For loop
+================================================================================
+
+class Main {
+  f() : Object { for (i : Int <- 0; i < 10; i <- i + 1) { out(i) } };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (for_expression
+        (binding
+          (identifier)
+          (type_identifier)
+          (integer))
+        (binary_expression
+          (identifier)
+          (integer))
+        (assignment_expression
+          (identifier)
+          (binary_expression
+            (identifier)
+            (integer)))
+        (call_expression
+          (identifier)
+          (argument_list
+            (identifier)))))))
+
+================================================================================
+For loop with several bindings
+================================================================================
+
+class Main {
+  f() : Object { for (i : Int <- 0, j : Int <- 9; i < j; i <- i + 1) { i } };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (for_expression
+        (binding
+          (identifier)
+          (type_identifier)
+          (integer))
+        (binding
+          (identifier)
+          (type_identifier)
+          (integer))
+        (binary_expression
+          (identifier)
+          (identifier))
+        (assignment_expression
+          (identifier)
+          (binary_expression
+            (identifier)
+            (integer)))
+        (identifier)))))
+
+================================================================================
+New and isvoid
+================================================================================
+
+class Main {
+  f() : Bool { isvoid new List };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (isvoid_expression
+        (new_expression
+          (type_identifier))))))
+
+================================================================================
+For loop with a block body
+================================================================================
+
+class Main {
+  f() : Object { for (i : Int <- 0; i < 10; i <- i + 1) { { out(i); i; } } };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (for_expression
+        (binding
+          (identifier)
+          (type_identifier)
+          (integer))
+        (binary_expression
+          (identifier)
+          (integer))
+        (assignment_expression
+          (identifier)
+          (binary_expression
+            (identifier)
+            (integer)))
+        (block
+          (call_expression
+            (identifier)
+            (argument_list
+              (identifier)))
+          (identifier))))))

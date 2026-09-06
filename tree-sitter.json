@@ -1,0 +1,17 @@
+{
+  "grammars": [
+    {
+      "name": "cool",
+      "camelcase": "Cool",
+      "scope": "source.cool",
+      "path": ".",
+      "file-types": [
+        "cl"
+      ],
+      "injection-regex": "^cool$"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0"
+  }
+}

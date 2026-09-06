@@ -1,0 +1,72 @@
+================================================================================
+Simple string
+================================================================================
+
+class Main {
+  s() : String { "hello" };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (string))))
+
+================================================================================
+Empty string
+================================================================================
+
+class Main {
+  s() : String { "" };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (string))))
+
+================================================================================
+Escaped quote and backslash
+================================================================================
+
+class Main {
+  s() : String { "a \" b \\ c \n d" };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (string))))
+
+================================================================================
+Triple quoted string spanning lines
+================================================================================
+
+class Main {
+  s() : String { """one "two" three
+four""" };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (string))))

@@ -1,0 +1,198 @@
+================================================================================
+Multiplication binds tighter than addition
+================================================================================
+
+class Main {
+  f() : Int { 1 + 2 * 3 - 4 };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (binary_expression
+        (binary_expression
+          (integer)
+          (binary_expression
+            (integer)
+            (integer)))
+        (integer)))))
+
+================================================================================
+Addition binds tighter than comparison
+================================================================================
+
+class Main {
+  f() : Bool { 1 + 2 < 3 * 4 };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (binary_expression
+        (binary_expression
+          (integer)
+          (integer))
+        (binary_expression
+          (integer)
+          (integer))))))
+
+================================================================================
+Not binds looser than comparison
+================================================================================
+
+class Main {
+  f() : Bool { not a = b };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (unary_expression
+        (binary_expression
+          (identifier)
+          (identifier))))))
+
+================================================================================
+Assignment binds looser than not
+================================================================================
+
+class Main {
+  f() : Bool { a <- not b };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (assignment_expression
+        (identifier)
+        (unary_expression
+          (identifier))))))
+
+================================================================================
+Assignment is right associative
+================================================================================
+
+class Main {
+  f() : Int { a <- b <- 1 };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (assignment_expression
+        (identifier)
+        (assignment_expression
+          (identifier)
+          (integer))))))
+
+================================================================================
+Complement binds tighter than multiplication
+================================================================================
+
+class Main {
+  f() : Int { ~a * b };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (binary_expression
+        (unary_expression
+          (identifier))
+        (identifier)))))
+
+================================================================================
+Dispatch binds tighter than complement
+================================================================================
+
+class Main {
+  f() : Int { ~a.g() };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (unary_expression
+        (dispatch_expression
+          (identifier)
+          (identifier)
+          (argument_list))))))
+
+================================================================================
+Isvoid binds tighter than multiplication
+================================================================================
+
+class Main {
+  f() : Bool { isvoid a * b };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (binary_expression
+        (isvoid_expression
+          (identifier))
+        (identifier)))))
+
+================================================================================
+Parentheses override precedence
+================================================================================
+
+class Main {
+  f() : Int { (1 + 2) * 3 };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (binary_expression
+        (parenthesized_expression
+          (binary_expression
+            (integer)
+            (integer)))
+        (integer)))))

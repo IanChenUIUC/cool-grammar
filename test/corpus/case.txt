@@ -1,0 +1,57 @@
+================================================================================
+Single branch
+================================================================================
+
+class Main {
+  f() : Object { case x of y : Int => y; esac };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (case_expression
+        (identifier)
+        (case_branch
+          (identifier)
+          (type_identifier)
+          (identifier))))))
+
+================================================================================
+Several branches
+================================================================================
+
+class Main {
+  f() : Object { case x of
+    a : Int => a;
+    b : String => b;
+    c : Object => c;
+  esac };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (case_expression
+        (identifier)
+        (case_branch
+          (identifier)
+          (type_identifier)
+          (identifier))
+        (case_branch
+          (identifier)
+          (type_identifier)
+          (identifier))
+        (case_branch
+          (identifier)
+          (type_identifier)
+          (identifier))))))

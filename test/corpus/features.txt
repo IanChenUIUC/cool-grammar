@@ -1,0 +1,80 @@
+================================================================================
+Attribute without initialiser
+================================================================================
+
+class Main {
+  x : Int;
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (attribute
+      (identifier)
+      (type_identifier))))
+
+================================================================================
+Attribute with initialiser
+================================================================================
+
+class Main {
+  x : Int <- 1 + 2;
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (attribute
+      (identifier)
+      (type_identifier)
+      (binary_expression
+        (integer)
+        (integer)))))
+
+================================================================================
+Method without formals
+================================================================================
+
+class Main {
+  main() : Object { 0 };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (integer))))
+
+================================================================================
+Method with formals
+================================================================================
+
+class Main {
+  add(a : Int, b : Int) : Int { a + b };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (formal
+        (identifier)
+        (type_identifier))
+      (formal
+        (identifier)
+        (type_identifier))
+      (type_identifier)
+      (binary_expression
+        (identifier)
+        (identifier)))))

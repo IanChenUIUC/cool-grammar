@@ -1,0 +1,126 @@
+================================================================================
+Single binding
+================================================================================
+
+class Main {
+  f() : Int { let x : Int in x };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (let_expression
+        (binding
+          (identifier)
+          (type_identifier))
+        (identifier)))))
+
+================================================================================
+Binding with initialiser
+================================================================================
+
+class Main {
+  f() : Int { let x : Int <- 1 in x };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (let_expression
+        (binding
+          (identifier)
+          (type_identifier)
+          (integer))
+        (identifier)))))
+
+================================================================================
+Several bindings
+================================================================================
+
+class Main {
+  f() : Int { let x : Int <- 1, y : Int, z : String <- "s" in x };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (let_expression
+        (binding
+          (identifier)
+          (type_identifier)
+          (integer))
+        (binding
+          (identifier)
+          (type_identifier))
+        (binding
+          (identifier)
+          (type_identifier)
+          (string))
+        (identifier)))))
+
+================================================================================
+Body extends as far as possible
+================================================================================
+
+class Main {
+  f() : Int { let x : Int in x + 1 };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (let_expression
+        (binding
+          (identifier)
+          (type_identifier))
+        (binary_expression
+          (identifier)
+          (integer))))))
+
+================================================================================
+Nested let
+================================================================================
+
+class Main {
+  f() : Int { let x : Int in let y : Int in x + y };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (let_expression
+        (binding
+          (identifier)
+          (type_identifier))
+        (let_expression
+          (binding
+            (identifier)
+            (type_identifier))
+          (binary_expression
+            (identifier)
+            (identifier)))))))

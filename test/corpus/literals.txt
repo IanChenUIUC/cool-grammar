@@ -1,0 +1,55 @@
+================================================================================
+Decimal and hexadecimal integers
+================================================================================
+
+class Main {
+  a : Int <- 0;
+  b : Int <- 42;
+  c : Int <- 0x1f;
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (attribute
+      (identifier)
+      (type_identifier)
+      (integer))
+    (attribute
+      (identifier)
+      (type_identifier)
+      (integer))
+    (attribute
+      (identifier)
+      (type_identifier)
+      (integer))))
+
+================================================================================
+Boolean spellings
+================================================================================
+
+class Main {
+  a : Bool <- true;
+  b : Bool <- fALSE;
+  c : Bool <- tRuE;
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (attribute
+      (identifier)
+      (type_identifier)
+      (identifier))
+    (attribute
+      (identifier)
+      (type_identifier)
+      (identifier))
+    (attribute
+      (identifier)
+      (type_identifier)
+      (identifier))))

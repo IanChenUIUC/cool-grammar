@@ -1,0 +1,89 @@
+================================================================================
+Keywords are case insensitive
+================================================================================
+
+CLASS Main InHeRiTs IO {
+  f() : Int { IF true THEN 1 ELSE 2 FI };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (conditional_expression
+        (identifier)
+        (integer)
+        (integer)))))
+
+================================================================================
+Identifiers with keyword prefixes
+================================================================================
+
+class Main {
+  classy : Int;
+  iffy() : Int { classy };
+  notable() : Int { iffy() };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (attribute
+      (identifier)
+      (type_identifier))
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (identifier))
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (call_expression
+        (identifier)
+        (argument_list)))))
+
+================================================================================
+Type identifiers with keyword spelling
+================================================================================
+
+class Main {
+  x : Classy;
+  y : SELF_TYPE;
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (attribute
+      (identifier)
+      (type_identifier))
+    (attribute
+      (identifier)
+      (type_identifier))))
+
+================================================================================
+Self is an ordinary identifier
+================================================================================
+
+class Main {
+  f() : SELF_TYPE { self };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (identifier))))
