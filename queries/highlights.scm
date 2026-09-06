@@ -1,3 +1,10 @@
+; Helix resolves overlapping captures to the LAST matching pattern, so the
+; generic rules come first and every specialisation below overrides them.
+
+(identifier) @variable
+
+(type_identifier) @type
+
 "class" @keyword.storage.type
 "inherits" @keyword.storage.modifier
 
@@ -28,58 +35,6 @@
   "isvoid"
   "not"
 ] @keyword.operator
-
-(new_expression
-  type: (type_identifier) @constructor)
-
-((call_expression
-  name: (identifier) @function.builtin)
-  (#any-of? @function.builtin
-    "abort" "type_name" "copy"
-    "out_string" "out_int" "in_string" "in_int"
-    "length" "concat" "substr"))
-
-((dispatch_expression
-  name: (identifier) @function.builtin)
-  (#any-of? @function.builtin
-    "abort" "type_name" "copy"
-    "out_string" "out_int" "in_string" "in_int"
-    "length" "concat" "substr"))
-
-((static_dispatch_expression
-  name: (identifier) @function.builtin)
-  (#any-of? @function.builtin
-    "abort" "type_name" "copy"
-    "out_string" "out_int" "in_string" "in_int"
-    "length" "concat" "substr"))
-
-(method_definition
-  name: (identifier) @function.method)
-
-(call_expression
-  name: (identifier) @function.method)
-
-(dispatch_expression
-  name: (identifier) @function.method)
-
-(static_dispatch_expression
-  name: (identifier) @function.method)
-
-(formal
-  name: (identifier) @variable.parameter)
-
-(attribute
-  name: (identifier) @variable.other.member)
-
-((type_identifier) @type.builtin
-  (#any-of? @type.builtin "Int" "String" "Bool" "Object" "IO" "SELF_TYPE"))
-
-(type_identifier) @type
-
-((identifier) @variable.builtin
-  (#eq? @variable.builtin "self"))
-
-(identifier) @variable
 
 (integer) @constant.numeric.integer
 (boolean) @constant.builtin.boolean
@@ -115,3 +70,51 @@
   ";"
   "."
 ] @punctuation.delimiter
+
+(formal
+  name: (identifier) @variable.parameter)
+
+(attribute
+  name: (identifier) @variable.other.member)
+
+(method_definition
+  name: (identifier) @function.method)
+
+(call_expression
+  name: (identifier) @function.method)
+
+(dispatch_expression
+  name: (identifier) @function.method)
+
+(static_dispatch_expression
+  name: (identifier) @function.method)
+
+((call_expression
+  name: (identifier) @function.builtin)
+  (#any-of? @function.builtin
+    "abort" "type_name" "copy"
+    "out_string" "out_int" "in_string" "in_int"
+    "length" "concat" "substr"))
+
+((dispatch_expression
+  name: (identifier) @function.builtin)
+  (#any-of? @function.builtin
+    "abort" "type_name" "copy"
+    "out_string" "out_int" "in_string" "in_int"
+    "length" "concat" "substr"))
+
+((static_dispatch_expression
+  name: (identifier) @function.builtin)
+  (#any-of? @function.builtin
+    "abort" "type_name" "copy"
+    "out_string" "out_int" "in_string" "in_int"
+    "length" "concat" "substr"))
+
+((type_identifier) @type.builtin
+  (#any-of? @type.builtin "Int" "String" "Bool" "Object" "IO" "SELF_TYPE"))
+
+(new_expression
+  type: (type_identifier) @constructor)
+
+((identifier) @variable.builtin
+  (#eq? @variable.builtin "self"))
