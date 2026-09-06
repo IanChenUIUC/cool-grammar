@@ -1,0 +1,36 @@
+#!/bin/bash
+# Emit COOL diagnostics for source read on stdin, one per line.
+# $1, if given, is the display name substituted for the temporary path.
+# Set COOL_BIN to use your own build instead of the reference binaries.
+# Requires cs426-mp1/reference-binaries, so this script stays untracked.
+set -u
+
+GRAMMAR_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+# cs426-mp1 supplies the reference binaries and example corpus: as a submodule
+# after a fresh clone, or as a sibling checkout in the course directory.
+# An explicit MP1 is used as given and never falls back.
+if [ -z "${MP1:-}" ]; then
+    for candidate in "$GRAMMAR_DIR/cs426-mp1" "$GRAMMAR_DIR/../cs426-mp1"; do
+        [ -d "$candidate/reference-binaries" ] && { MP1="$candidate"; break; }
+    done
+fi
+if [ ! -d "${MP1:-}/reference-binaries" ]; then
+    echo "$(basename "$0"): no reference-binaries under '${MP1:-<not found>}'." >&2
+    echo "  run 'git submodule update --init', or set MP1 to a cs426-mp1 checkout" >&2
+    exit 2
+fi
+BIN="${COOL_BIN:-$MP1/reference-binaries}"
+name="${1:-stdin}"
+
+work=$(mktemp -d); trap 'rm -rf "$work"' EXIT
+src="$work/src.cl"
+cat > "$src"
+
+"$BIN/lexer" "$src" > "$work/tokens" 2>"$work/err"
+"$BIN/parser" < "$work/tokens" > "$work/ast" 2>>"$work/err"
+if ! grep -q 'halted' "$work/err"; then
+    "$BIN/semant" < "$work/ast" > /dev/null 2>>"$work/err"
+fi
+
+sed -e "s|$src|$name|g" -e '/^Compilation halted/d' "$work/err"

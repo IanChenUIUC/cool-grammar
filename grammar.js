@@ -254,14 +254,14 @@ module.exports = grammar({
 
     parenthesized_expression: ($) => seq('(', $._expression, ')'),
 
-    // Must stay below the keyword rules: equal-length lexer ties break by rule order.
+    boolean: (_) => token(choice(/t[rR][uU][eE]/, /f[aA][lL][sS][eE]/)),
+
+    // Must stay below every keyword and literal rule: equal-length lexer ties break by rule order.
     type_identifier: (_) => /[A-Z][A-Za-z0-9_]*/,
 
     identifier: (_) => /[a-z][A-Za-z0-9_]*/,
 
     integer: (_) => token(choice(/0x[0-9a-f]+/, /[0-9]+/)),
-
-    boolean: (_) => token(choice(/t[rR][uU][eE]/, /f[aA][lL][sS][eE]/)),
 
     line_comment: (_) => /--[^\n]*/,
   },

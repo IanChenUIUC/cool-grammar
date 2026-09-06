@@ -1,0 +1,3 @@
+[submodule "cs426-mp1"]
+	path = cs426-mp1
+	url = https://github.com/IanChenUIUC/cs426-mp1.git

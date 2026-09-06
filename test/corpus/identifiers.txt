@@ -16,7 +16,7 @@ CLASS Main InHeRiTs IO {
       (identifier)
       (type_identifier)
       (conditional_expression
-        (identifier)
+        (boolean)
         (integer)
         (integer)))))
 
@@ -87,3 +87,31 @@ class Main {
       (identifier)
       (type_identifier)
       (identifier))))
+
+================================================================================
+Boolean prefixes are identifiers
+================================================================================
+
+class Main {
+  truely : Int;
+  falsey : Int;
+  f() : Int { truely + falsey };
+};
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (type_identifier)
+    (attribute
+      (identifier)
+      (type_identifier))
+    (attribute
+      (identifier)
+      (type_identifier))
+    (method_definition
+      (identifier)
+      (type_identifier)
+      (binary_expression
+        (identifier)
+        (identifier)))))

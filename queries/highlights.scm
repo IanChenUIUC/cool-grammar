@@ -29,6 +29,30 @@
   "not"
 ] @keyword.operator
 
+(new_expression
+  type: (type_identifier) @constructor)
+
+((call_expression
+  name: (identifier) @function.builtin)
+  (#any-of? @function.builtin
+    "abort" "type_name" "copy"
+    "out_string" "out_int" "in_string" "in_int"
+    "length" "concat" "substr"))
+
+((dispatch_expression
+  name: (identifier) @function.builtin)
+  (#any-of? @function.builtin
+    "abort" "type_name" "copy"
+    "out_string" "out_int" "in_string" "in_int"
+    "length" "concat" "substr"))
+
+((static_dispatch_expression
+  name: (identifier) @function.builtin)
+  (#any-of? @function.builtin
+    "abort" "type_name" "copy"
+    "out_string" "out_int" "in_string" "in_int"
+    "length" "concat" "substr"))
+
 (method_definition
   name: (identifier) @function.method)
 

@@ -1213,6 +1213,22 @@
         }
       ]
     },
+    "boolean": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "PATTERN",
+            "value": "t[rR][uU][eE]"
+          },
+          {
+            "type": "PATTERN",
+            "value": "f[aA][lL][sS][eE]"
+          }
+        ]
+      }
+    },
     "type_identifier": {
       "type": "PATTERN",
       "value": "[A-Z][A-Za-z0-9_]*"
@@ -1233,22 +1249,6 @@
           {
             "type": "PATTERN",
             "value": "[0-9]+"
-          }
-        ]
-      }
-    },
-    "boolean": {
-      "type": "TOKEN",
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "PATTERN",
-            "value": "t[rR][uU][eE]"
-          },
-          {
-            "type": "PATTERN",
-            "value": "f[aA][lL][sS][eE]"
           }
         ]
       }

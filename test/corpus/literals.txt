@@ -44,12 +44,12 @@ class Main {
     (attribute
       (identifier)
       (type_identifier)
-      (identifier))
+      (boolean))
     (attribute
       (identifier)
       (type_identifier)
-      (identifier))
+      (boolean))
     (attribute
       (identifier)
       (type_identifier)
-      (identifier))))
+      (boolean))))
