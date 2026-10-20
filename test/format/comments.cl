@@ -15,6 +15,12 @@ class Commented { -- after class brace
         f(x, -- inside arguments
           2)
       fi;
+      f( -- after open paren
+        x);
+      f(x, -- before a later comma
+        2, 3);
+      f(x, 2, -- after a later comma
+        3);
     }
   };
   -- before closing brace

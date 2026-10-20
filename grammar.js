@@ -39,6 +39,8 @@ module.exports = grammar({
 
   externals: ($) => [$.block_comment, $.string],
 
+  supertypes: ($) => [$._expression],
+
   rules: {
     source_file: ($) => repeat($.class_definition),
 

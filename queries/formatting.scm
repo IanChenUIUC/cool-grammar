@@ -96,38 +96,60 @@
   [(line_comment) (block_comment)]? @do_nothing)
 (case_expression "esac" @prepend_indent_end)
 
-; if / let / arguments: broken only if broken in the input
+; if / let: always broken
 
 (conditional_expression "if" @append_space)
 (conditional_expression "then" @prepend_space)
 (conditional_expression
-  "then" @append_spaced_softline
+  "then" @append_hardline
   .
   [(line_comment) (block_comment)]? @do_nothing)
 (conditional_expression "then" @append_indent_start)
-(conditional_expression "else" @prepend_spaced_softline)
+(conditional_expression "else" @prepend_hardline)
 (conditional_expression
-  "else" @append_spaced_softline
+  "else" @append_hardline
   .
   [(line_comment) (block_comment)]? @do_nothing)
 (conditional_expression "else" @prepend_indent_end @append_indent_start)
-(conditional_expression "fi" @prepend_spaced_softline)
+(conditional_expression "fi" @prepend_hardline)
 (conditional_expression "fi" @prepend_indent_end)
 
 (let_expression "let" @append_space)
 (let_expression "in" @prepend_space)
 (let_expression
-  "in" @append_spaced_softline
+  "in" @append_hardline
   .
   [(line_comment) (block_comment)]? @do_nothing)
 
-(argument_list "(" @append_indent_start)
+; arguments: one per line if any argument is an if / let / case / loop or
+; there is a line comment, otherwise kept on one line and not indented
+
 (argument_list
-  "(" @append_empty_softline
+  "(" @append_indent_start
+  [(conditional_expression) (let_expression) (case_expression)
+   (while_expression) (for_expression) (line_comment)])
+(argument_list
+  "(" @append_hardline
+  .
+  [(line_comment) (block_comment)]? @do_nothing
+  [(conditional_expression) (let_expression) (case_expression)
+   (while_expression) (for_expression)])
+(argument_list
+  "," @append_hardline
+  .
+  [(line_comment) (block_comment)]? @do_nothing
+  [(conditional_expression) (let_expression) (case_expression)
+   (while_expression) (for_expression)])
+(argument_list
+  [(conditional_expression) (let_expression) (case_expression)
+   (while_expression) (for_expression)]
+  "," @append_hardline
   .
   [(line_comment) (block_comment)]? @do_nothing)
+(argument_list "(" @append_hardline . (_expression) (line_comment))
+(argument_list "," @append_hardline . (_expression) (line_comment))
+(argument_list (line_comment) "," @append_hardline . (_expression))
 (argument_list
-  "," @append_spaced_softline
-  .
-  [(line_comment) (block_comment)]? @do_nothing)
-(argument_list ")" @prepend_indent_end @prepend_empty_softline)
+  [(conditional_expression) (let_expression) (case_expression)
+   (while_expression) (for_expression) (line_comment)]
+  ")" @prepend_hardline @prepend_indent_end)
